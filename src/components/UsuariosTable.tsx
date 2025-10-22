@@ -1,5 +1,6 @@
 // src/components/UsuariosTable.tsx
 import React, { useState } from "react";
+import { Edit, Trash2 } from "lucide-react";
 import { User } from "../types/User";
 import { mockUsers } from "../data/mockUsers";
 
@@ -88,19 +89,13 @@ const UsuariosTable: React.FC = () => {
                 <td className="px-6 py-3 border-b">{u.apellidoPaterno}</td>
                 <td className="px-6 py-3 border-b">{u.apellidoMaterno}</td>
                 <td className="px-6 py-3 border-b">{u.cedula}</td>
-                <td className="px-6 py-3 border-b text-center space-x-2">
-                  <button
-                    onClick={() => openEditModal(u)}
-                    className="bg-yellow-400 hover:bg-yellow-500 text-white px-3 py-1 rounded shadow"
-                  >
-                    Editar
-                  </button>
-                  <button
-                    onClick={() => handleDelete(u.id)}
-                    className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded shadow"
-                  >
-                    Eliminar
-                  </button>
+                <td className="px-6 py-3 border-b text-center space-x-4">
+                    <button onClick={() => openEditModal(u)} title="Editar" 
+                      className="text-yellow-500 hover:text-yellow-600"> <Edit size={20}/>
+                    </button>
+                    <button onClick={() => handleDelete(u.id)} title="Eliminar"
+                      className="text-red-500 hover:text-red-600"> <Trash2 size={20}/>
+                    </button>
                 </td>
               </tr>
             ))}

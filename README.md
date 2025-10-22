@@ -1,73 +1,40 @@
-# React + TypeScript + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Aplicacion para una funeraria
 
-Currently, two official plugins are available:
+Proyecto Individual Arquitectura proyecto Patrón modelo-vista-controlador (MVC) 
+• Modelo: Contiene la funcionalidad central y los datos. 
+• Vista: Muestra la información al usuario, siempre es posible definir una o más vistas para una misma aplicación. 
+• Controlador: Maneja la entrada del usuario. Esto se hace para separar las representaciones internas de la información de las formas en que se presenta y se acepta la información del usuario. De esta manera se desacopla los componentes y permite una reutilización eficiente del código. 
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Librerías: Para usar React y Node.js juntos, necesitas un servidor (creado con Node.js y su framework Express) que ofrezca datos a una aplicación frontend hecha con React. 
+• JSON: Se utiliza para la comunicación entre el front-end y el back-end debido a su fácil integración con JavaScript. 
+• Bundlers: Herramientas como webpack y Vite se configuran, usando Node.js, para compilar y agrupar el código de React. 
+• Gestor de Paquetes: npm, incluido con Node.js, se utiliza para instalar y gestionar estas bibliotecas en ambos entornos. • Union de end points:La librería más usada es CORDS por su facilidad y en instalación
 
-## React Compiler
+Tecnologías Marcos: 
+• React DOM 
+• Note.Js 
+Lenguajes: 
+• JavaScrip 
+• TypeScrip 
+Bases de Datos: 
+• MySQL 
+Plataformas de gestión de proyectos: 
+• GitHub
 
-The React Compiler is currently not compatible with SWC. See [this issue](https://github.com/vitejs/vite-plugin-react/issues/428) for tracking the progress.
+Instalacion
+Para levantar el proyecto localmente, sigue estos pasos:
 
-## Expanding the ESLint configuration
+1.Clona este repositorio en tu máquina local:
+git clone https://github.com/josue-j-fernandez/Funeraria_frontend.git
+2.Navega al directorio del proyecto:
+cd programacion-internet-frontend
+3.Instala las dependencias necesarias:
+npm install
+4.Inicia el servidor de desarrollo:
+npm run dev
+5.Abre tu navegador y visita 
+http://localhost:5173 para ver la aplicación en funcionamiento.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
 ```

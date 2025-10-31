@@ -1,4 +1,4 @@
-// src/components/Sidebar.tsx
+// src/components/Slidebar.tsx
 import React from "react";
 
 interface SidebarProps {

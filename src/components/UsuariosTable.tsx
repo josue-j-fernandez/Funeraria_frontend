@@ -1,7 +1,7 @@
 // src/components/UsuariosTable.tsx
 import React, { useState } from "react";
 import { Edit, Trash2 } from "lucide-react";
-import { User } from "../types/User";
+import type { User } from "../types/User";
 import { mockUsers } from "../data/mockUsers";
 
 const UsuariosTable: React.FC = () => {

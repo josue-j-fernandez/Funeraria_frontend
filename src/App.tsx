@@ -1,31 +1,30 @@
-import { Routes, Route, Navigate } from "react-router-dom";
+import React from "react";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { AuthProvider } from "./context/AuthProvider";
 import Login from "./routes/Login";
 import Dashboard from "./routes/Dashboard";
+import PrivateRoute from "./routes/PrivateRoute";
 
-function App() {
-  // Aquí podrías usar un estado global o contexto para saber si está autenticado
-  const isAuthenticated = Boolean(localStorage.getItem("token")); // ejemplo simplista
-
+const App: React.FC = () => {
   return (
-    <Routes>
-      <Route
-        path="/"
-        element={
-          isAuthenticated ? <Navigate to="/dashboard" replace /> : <Login />
-        }
-      />
-      <Route
-        path="/login"
-        element={isAuthenticated ? <Navigate to="/dashboard" replace /> : <Login />}
-      />
-      <Route
-        path="/dashboard/*"
-        element={
-          isAuthenticated ? <Dashboard /> : <Navigate to="/login" replace />
-        }
-      />
-    </Routes>
+    <BrowserRouter>
+      <AuthProvider>
+        <Routes>
+          <Route path="/" element={<Navigate to="/login" replace />} />
+          <Route path="/login" element={<Login />} />
+          <Route
+            path="/dashboard/*"
+            element={
+              <PrivateRoute>
+                <Dashboard />
+              </PrivateRoute>
+            }
+          />
+        </Routes>
+      </AuthProvider>
+    </BrowserRouter>
   );
-}
+};
 
 export default App;
+

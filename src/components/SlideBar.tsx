@@ -1,40 +1,78 @@
-// src/components/Slidebar.tsx
-import React from "react";
+import React, { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 
 interface SidebarProps {
   isOpen: boolean;
   onClose: () => void;
-  onMenuClick: (view: "usuarios") => void;
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose, onMenuClick }) => {
+const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
+  const [servicesOpen, setServicesOpen] = useState(false);
+  const location = useLocation();
+
+  const toggleServices = () => setServicesOpen(!servicesOpen);
+
+  const linkClass = (path: string) =>
+    location.pathname === path
+      ? "block px-4 py-2 bg-blue-200 rounded"
+      : "block px-4 py-2 hover:bg-blue-100 rounded";
+
   return (
     <div
-      style={{
-        position: "fixed",
-        top: 0,
-        left: isOpen ? 0 : "-250px",
-        width: "250px",
-        height: "100%",
-        backgroundColor: "#f0f0f0",
-        boxShadow: "2px 0 5px rgba(0,0,0,0.3)",
-        transition: "left 0.3s",
-        zIndex: 1000,
-      }}
+      className={`fixed top-0 left-0 h-full w-64 bg-gray-100 shadow-lg transform transition-transform ${
+        isOpen ? "translate-x-0" : "-translate-x-full"
+      }`}
     >
-      <div style={{ padding: "1rem", borderBottom: "1px solid #ccc" }}>
-        <h3>Menu</h3>
-        <button onClick={onClose}>Cerrar</button>
+      <div className="p-4 border-b flex justify-between items-center">
+        <h2 className="font-bold text-lg">Menú</h2>
+        <button onClick={onClose} className="text-gray-600">
+          ✕
+        </button>
       </div>
-      <ul style={{ listStyle: "none", padding: 0 }}>
-        <li style={{ padding: "0.5rem 1rem", cursor: "pointer" }}
-            onClick={() => onMenuClick("usuarios")}>
+
+      <nav className="p-4">
+        <Link to="/dashboard" className={linkClass("/dashboard")}>
+          Inicio
+        </Link>
+
+        <Link to="/dashboard/usuarios" className={linkClass("/dashboard/usuarios")}>
           Usuarios
-        </li>
-        {/* puedes agregar más opciones aquí */}
-      </ul>
+        </Link>
+
+        {/* Desplegable de Servicios */}
+        <div className="mt-2">
+          <button
+            onClick={toggleServices}
+            className="w-full text-left px-4 py-2 hover:bg-blue-100 rounded flex justify-between items-center"
+          >
+            Tipos de Servicios
+            <span>{servicesOpen ? "▲" : "▼"}</span>
+          </button>
+
+          {servicesOpen && (
+            <div className="ml-4 mt-1">
+              <Link
+                to="/dashboard/servicios-funebres"
+                className={linkClass("/dashboard/servicios-funebres")}
+              >
+                Servicios Funebres
+              </Link>
+              <Link
+                to="/dashboard/servicios-cremacion"
+                className={linkClass("/dashboard/servicios-cremacion")}
+              >
+                Servicios Cremación
+              </Link>
+            </div>
+          )}
+        </div>
+      </nav>
     </div>
   );
 };
 
 export default Sidebar;
+
+
+
+

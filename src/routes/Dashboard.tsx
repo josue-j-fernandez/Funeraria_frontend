@@ -1,21 +1,13 @@
+// src/routes/Dashboard.tsx
 import React, { useState } from "react";
+import { Outlet, useNavigate } from "react-router-dom";
 import Sidebar from "../components/SlideBar";
-import UsuariosTable from "../components/UsuariosTable";
 import { useAuth } from "../hooks/useAuth";
-import { useNavigate } from "react-router-dom";
 
 const Dashboard: React.FC = () => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [currentView, setCurrentView] = useState<"usuarios" | null>(null);
   const { logout } = useAuth();
   const navigate = useNavigate();
-
-  const toggleMenu = () => setMenuOpen(!menuOpen);
-
-  const handleMenuClick = (view: "usuarios") => {
-    setCurrentView(view);
-    setMenuOpen(false);
-  };
 
   const handleLogout = () => {
     logout();
@@ -24,9 +16,9 @@ const Dashboard: React.FC = () => {
 
   return (
     <div style={{ display: "flex", height: "100vh" }}>
-      <Sidebar isOpen={menuOpen} onClose={() => setMenuOpen(false)} onMenuClick={handleMenuClick} />
+      <Sidebar isOpen={menuOpen} onClose={() => setMenuOpen(false)} />
 
-      <div style={{ flex: 1, position: "relative" }}>
+      <div style={{ flex: 1 }}>
         <header
           style={{
             padding: "1rem",
@@ -36,7 +28,7 @@ const Dashboard: React.FC = () => {
             alignItems: "center",
           }}
         >
-          <button onClick={toggleMenu}>☰ Menu</button>
+          <button onClick={() => setMenuOpen(!menuOpen)}>☰ Menu</button>
           <button
             onClick={handleLogout}
             className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded"
@@ -46,7 +38,8 @@ const Dashboard: React.FC = () => {
         </header>
 
         <main style={{ padding: "1rem" }}>
-          {currentView === "usuarios" ? <UsuariosTable /> : <div>Selecciona una opción del menú</div>}
+          {/* Aquí se renderizan las rutas hijas */}
+          <Outlet />
         </main>
       </div>
     </div>
@@ -54,5 +47,8 @@ const Dashboard: React.FC = () => {
 };
 
 export default Dashboard;
+
+
+
 
 

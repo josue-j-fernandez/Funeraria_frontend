@@ -15,6 +15,8 @@ const UsuariosTable: React.FC = () => {
     cedula: "",
   });
 
+  type FormFields = keyof typeof formData;
+
   const openCreateModal = () => {
     setEditingUser(null);
     setFormData({ nombre: "", apellidoPaterno: "", apellidoMaterno: "", cedula: "" });
@@ -61,19 +63,21 @@ const UsuariosTable: React.FC = () => {
 
   return (
     <div className="p-6">
+      {/* Título y botón crear */}
       <div className="flex justify-between items-center mb-6">
-        <h2 className="text-2xl font-semibold text-gray-700">Lista de Usuarios</h2>
+        <h2 className="text-2xl font-semibold text-[#2e2e2e]">Lista de Usuarios</h2>
         <button
           onClick={openCreateModal}
-          className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded shadow"
+          className="bg-[#8D5F2D] hover:bg-[#7C4F28] text-white px-4 py-2 rounded shadow"
         >
           Crear Usuario
         </button>
       </div>
 
+      {/* Tabla */}
       <div className="overflow-x-auto bg-white shadow-md rounded border border-gray-200">
         <table className="min-w-full text-sm text-left text-gray-700">
-          <thead className="bg-blue-100 text-gray-800 uppercase text-xs font-bold">
+          <thead className="bg-[#d4b48c] text-white uppercase text-xs font-bold">
             <tr>
               <th className="px-6 py-3 border-b">Nombre</th>
               <th className="px-6 py-3 border-b">Apellido Paterno</th>
@@ -90,12 +94,20 @@ const UsuariosTable: React.FC = () => {
                 <td className="px-6 py-3 border-b">{u.apellidoMaterno}</td>
                 <td className="px-6 py-3 border-b">{u.cedula}</td>
                 <td className="px-6 py-3 border-b text-center space-x-4">
-                    <button onClick={() => openEditModal(u)} title="Editar" 
-                      className="text-yellow-500 hover:text-yellow-600"> <Edit size={20}/>
-                    </button>
-                    <button onClick={() => handleDelete(u.id)} title="Eliminar"
-                      className="text-red-500 hover:text-red-600"> <Trash2 size={20}/>
-                    </button>
+                  <button
+                    onClick={() => openEditModal(u)}
+                    title="Editar"
+                    className="text-yellow-500 hover:text-yellow-600"
+                  >
+                    <Edit size={20} />
+                  </button>
+                  <button
+                    onClick={() => handleDelete(u.id)}
+                    title="Eliminar"
+                    className="text-red-500 hover:text-red-600"
+                  >
+                    <Trash2 size={20} />
+                  </button>
                 </td>
               </tr>
             ))}
@@ -103,54 +115,28 @@ const UsuariosTable: React.FC = () => {
         </table>
       </div>
 
-      {/* Modal */}
+      {/* Modal Crear/Editar */}
       {showModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
           <div className="bg-white p-6 rounded shadow-lg w-full max-w-lg">
-            <h3 className="text-xl font-semibold mb-4 text-gray-800 border-b pb-2">
+            <h3 className="text-xl font-semibold mb-4 text-[#2e2e2e] border-b pb-2">
               {editingUser ? "Editar Usuario" : "Crear Usuario"}
             </h3>
             <form onSubmit={handleSubmit} className="space-y-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700">Nombre:</label>
-                <input
-                  type="text"
-                  value={formData.nombre}
-                  onChange={(e) => setFormData({ ...formData, nombre: e.target.value })}
-                  className="w-full px-3 py-2 border rounded focus:outline-none focus:ring focus:border-blue-400"
-                  required
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700">Apellido Paterno:</label>
-                <input
-                  type="text"
-                  value={formData.apellidoPaterno}
-                  onChange={(e) => setFormData({ ...formData, apellidoPaterno: e.target.value })}
-                  className="w-full px-3 py-2 border rounded focus:outline-none focus:ring focus:border-blue-400"
-                  required
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700">Apellido Materno:</label>
-                <input
-                  type="text"
-                  value={formData.apellidoMaterno}
-                  onChange={(e) => setFormData({ ...formData, apellidoMaterno: e.target.value })}
-                  className="w-full px-3 py-2 border rounded focus:outline-none focus:ring focus:border-blue-400"
-                  required
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700">Cédula:</label>
-                <input
-                  type="text"
-                  value={formData.cedula}
-                  onChange={(e) => setFormData({ ...formData, cedula: e.target.value })}
-                  className="w-full px-3 py-2 border rounded focus:outline-none focus:ring focus:border-blue-400"
-                  required
-                />
-              </div>
+              {(Object.keys(formData) as FormFields[]).map((field) => (
+                <div key={field}>
+                  <label className="block text-sm font-medium capitalize">{field.replace(/([A-Z])/g, " $1")}</label>
+                  <input
+                    type="text"
+                    value={formData[field]}
+                    onChange={(e) =>
+                      setFormData({ ...formData, [field]: e.target.value })
+                    }
+                    className="w-full px-3 py-2 border border-gray-400 rounded focus:outline-none focus:ring focus:ring-[#8D5F2D] focus:border-[#8D5F2D]"
+                    required
+                  />
+                </div>
+              ))}
               <div className="flex justify-end space-x-2 pt-4">
                 <button
                   type="button"
@@ -175,3 +161,4 @@ const UsuariosTable: React.FC = () => {
 };
 
 export default UsuariosTable;
+

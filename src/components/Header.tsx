@@ -1,24 +1,26 @@
 // src/components/Header.tsx
 import React from "react";
 import { useAuth } from "../hooks/useAuth";
+import { useNavigate } from "react-router-dom";
 
 interface HeaderProps {
-  onToggleSidebar: () => void;
+  onMenuToggle: () => void;
 }
 
-const Header: React.FC<HeaderProps> = ({ onToggleSidebar }) => {
+const Header: React.FC<HeaderProps> = ({ onMenuToggle }) => {
   const { logout } = useAuth();
+  const navigate = useNavigate();
 
   const handleLogout = () => {
     logout();
-    window.location.href = "/"; 
+    navigate("/login");
   };
 
   return (
     <header className="flex justify-between items-center px-6 py-3 bg-[#2e2e2e] text-white shadow-md">
       <button
-        onClick={onToggleSidebar}
-        className="text-2xl font-semibold hover:text-[#8D5F2D] transition-colors"
+        onClick={onMenuToggle}
+        className="text-2xl font-semibold hover:text-[#8D5F28] transition-colors"
       >
         ☰
       </button>

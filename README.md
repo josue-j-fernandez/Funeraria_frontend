@@ -28,7 +28,7 @@ Para levantar el proyecto localmente, sigue estos pasos:
 1.Clona este repositorio en tu máquina local:
 git clone https://github.com/josue-j-fernandez/Funeraria_frontend.git
 2.Navega al directorio del proyecto:
-cd programacion-internet-frontend
+cd Funeraria_frontend
 3.Instala las dependencias necesarias:
 npm install
 4.Inicia el servidor de desarrollo:

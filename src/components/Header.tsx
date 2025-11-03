@@ -18,6 +18,7 @@ const Header: React.FC<HeaderProps> = ({ toggleSidebar }) => {
 
   return (
     <header className="flex justify-between items-center px-6 py-3 bg-[#2e2e2e] text-white shadow-md">
+      {/* Botón de menú */}
       <button
         onClick={toggleSidebar}
         className="text-2xl font-semibold hover:text-[#8D5F2D] transition-colors"
@@ -25,8 +26,12 @@ const Header: React.FC<HeaderProps> = ({ toggleSidebar }) => {
         ☰
       </button>
 
-      <h1 className="text-xl font-serif tracking-wide">Funeraria Santo Sepulcro</h1>
+      {/* Título con nueva fuente y tamaño */}
+      <h1 className="text-2xl md:text-3xl font-serif font-extrabold tracking-wide">
+        Funeraria Santo Sepulcro
+      </h1>
 
+      {/* Botón de cerrar sesión */}
       <button
         onClick={handleLogout}
         className="bg-[#8D5F2D] hover:bg-[#7C4F28] text-white px-4 py-2 rounded-lg transition-colors"
@@ -38,6 +43,7 @@ const Header: React.FC<HeaderProps> = ({ toggleSidebar }) => {
 };
 
 export default Header;
+
 
 
 

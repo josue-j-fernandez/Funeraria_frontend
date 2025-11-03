@@ -1,5 +1,5 @@
 // src/data/mockUsers.ts
-import { User } from "../types/User";
+import type { User } from "../types/User";
 
 export const mockUsers: User[] = [
   { id: 1, nombre: "Juan", apellidoPaterno: "Pérez", apellidoMaterno: "Gómez", cedula: "123456" },

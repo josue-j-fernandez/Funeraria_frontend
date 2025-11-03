@@ -15,31 +15,36 @@ const Dashboard: React.FC = () => {
   };
 
   return (
-    <div style={{ display: "flex", height: "100vh" }}>
+    <div className="flex h-screen bg-[#f8f7f4] text-gray-800">
+      {/* Sidebar */}
       <Sidebar isOpen={menuOpen} onClose={() => setMenuOpen(false)} />
 
-      <div style={{ flex: 1 }}>
-        <header
-          style={{
-            padding: "1rem",
-            borderBottom: "1px solid #ddd",
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-          }}
-        >
-          <button onClick={() => setMenuOpen(!menuOpen)}>☰ Menu</button>
+      {/* Contenedor principal */}
+      <div className="flex flex-col flex-1">
+        {/* Header */}
+        <header className="flex justify-between items-center px-6 py-3 bg-[#2e2e2e] text-white shadow-md">
+          <button
+            onClick={() => setMenuOpen(!menuOpen)}
+            className="text-2xl font-semibold hover:text-[#8D5F2D] transition-colors"
+          >
+            ☰
+          </button>
+
+          <h1 className="text-xl font-serif tracking-wide">Funeraria Santo Sepulcro</h1>
+
           <button
             onClick={handleLogout}
-            className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded"
+            className="bg-[#8D5F2D] hover:bg-[#7C4F28] text-white px-4 py-2 rounded-lg transition-colors"
           >
             Cerrar Sesión
           </button>
         </header>
 
-        <main style={{ padding: "1rem" }}>
-          {/* Aquí se renderizan las rutas hijas */}
-          <Outlet />
+        {/* Contenido principal */}
+        <main className="flex-1 overflow-y-auto p-6 bg-[#f8f7f4]">
+          <div className="bg-white rounded-xl shadow-md p-6 border border-gray-200">
+            <Outlet />
+          </div>
         </main>
       </div>
     </div>
@@ -47,6 +52,7 @@ const Dashboard: React.FC = () => {
 };
 
 export default Dashboard;
+
 
 
 

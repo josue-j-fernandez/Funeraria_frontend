@@ -12,7 +12,7 @@ const Login: React.FC = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (login(username, password)) {
-      navigate("/dashboard");
+      navigate("/");
     } else {
       alert("Credenciales incorrectas");
     }

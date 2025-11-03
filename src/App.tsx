@@ -1,30 +1,61 @@
-// src/App.tsx
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./context/AuthProvider";
-
-import MainLayout from "./components/MainLayout";
 import HomePage from "./routes/HomePage";
 import UsuariosTable from "./components/UsuariosTable";
 import ServiciosFunebres from "./routes/ServiciosFunebres";
 import ServiciosCremacion from "./routes/ServiciosCremacion";
-import Login from "./routes/Login";
+import MainLayout from "./components/MainLayout";
+import LoginPage from "./routes/Login";
+import PrivateRoute from "./routes/PrivateRoute";
 
 const App: React.FC = () => {
   return (
     <BrowserRouter>
       <AuthProvider>
         <Routes>
-          {/* Página de login */}
-          <Route path="/login" element={<Login />} />
+          <Route path="/login" element={<LoginPage />} />
 
-          {/* Todas las páginas protegidas */}
-          <Route path="/" element={<MainLayout />}>
-            <Route index element={<HomePage />} />
-            <Route path="usuarios" element={<UsuariosTable />} />
-            <Route path="servicios-funebres" element={<ServiciosFunebres />} />
-            <Route path="servicios-cremacion" element={<ServiciosCremacion />} />
-          </Route>
+          <Route
+            path="/"
+            element={
+              <PrivateRoute>
+                <MainLayout>
+                  <HomePage />
+                </MainLayout>
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/usuarios"
+            element={
+              <PrivateRoute>
+                <MainLayout>
+                  <UsuariosTable />
+                </MainLayout>
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/servicios-funebres"
+            element={
+              <PrivateRoute>
+                <MainLayout>
+                  <ServiciosFunebres />
+                </MainLayout>
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/servicios-cremacion"
+            element={
+              <PrivateRoute>
+                <MainLayout>
+                  <ServiciosCremacion />
+                </MainLayout>
+              </PrivateRoute>
+            }
+          />
         </Routes>
       </AuthProvider>
     </BrowserRouter>
@@ -32,6 +63,9 @@ const App: React.FC = () => {
 };
 
 export default App;
+
+
+
 
 
 

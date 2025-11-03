@@ -1,3 +1,4 @@
+// src/context/AuthProvider.tsx
 import React, { useState, useEffect, type ReactNode } from "react";
 import { AuthContext } from "./AuthContext";
 
@@ -25,6 +26,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const logout = () => {
     localStorage.removeItem("token");
     setIsAuthenticated(false);
+ 
   };
 
   return (
@@ -33,3 +35,4 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     </AuthContext.Provider>
   );
 };
+

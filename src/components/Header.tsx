@@ -4,28 +4,28 @@ import { useAuth } from "../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 
 interface HeaderProps {
-  onMenuToggle: () => void;
+  toggleSidebar: () => void;
 }
 
-const Header: React.FC<HeaderProps> = ({ onMenuToggle }) => {
+const Header: React.FC<HeaderProps> = ({ toggleSidebar }) => {
   const { logout } = useAuth();
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    logout();
-    navigate("/login");
+    logout();        // Cambia estado y elimina token
+    navigate("/login"); // Redirige correctamente al login
   };
 
   return (
     <header className="flex justify-between items-center px-6 py-3 bg-[#2e2e2e] text-white shadow-md">
       <button
-        onClick={onMenuToggle}
-        className="text-2xl font-semibold hover:text-[#8D5F28] transition-colors"
+        onClick={toggleSidebar}
+        className="text-2xl font-semibold hover:text-[#8D5F2D] transition-colors"
       >
         ☰
       </button>
 
-      <h1 className="text-xl font-serif tracking-wide">Funeraria Santo Pulcro</h1>
+      <h1 className="text-xl font-serif tracking-wide">Funeraria Santo Sepulcro</h1>
 
       <button
         onClick={handleLogout}
@@ -38,4 +38,11 @@ const Header: React.FC<HeaderProps> = ({ onMenuToggle }) => {
 };
 
 export default Header;
+
+
+
+
+
+
+
 

@@ -40,8 +40,29 @@ const UsuariosTable: React.FC = () => {
     }
   };
 
+  // 🔹 Validación sencilla antes de guardar
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+
+    // Validar campos
+    const soloLetras = /^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/;
+    const soloNumeros = /^[0-9]+$/;
+
+    if (
+      !soloLetras.test(formData.nombre) ||
+      !soloLetras.test(formData.apellidoPaterno) ||
+      !soloLetras.test(formData.apellidoMaterno)
+    ) {
+      alert("⚠️ Los nombres y apellidos solo deben contener letras.");
+      return;
+    }
+
+    if (!soloNumeros.test(formData.cedula)) {
+      alert("⚠️ La cédula solo debe contener números.");
+      return;
+    }
+
+    // Guardar normalmente
     if (editingUser) {
       setUsuarios((prev) =>
         prev.map((u) =>
@@ -51,14 +72,27 @@ const UsuariosTable: React.FC = () => {
     } else {
       const newUser: User = {
         id: Date.now(),
-        nombre: formData.nombre,
-        apellidoPaterno: formData.apellidoPaterno,
-        apellidoMaterno: formData.apellidoMaterno,
-        cedula: formData.cedula,
+        ...formData,
       };
       setUsuarios((prev) => [...prev, newUser]);
     }
+
     setShowModal(false);
+  };
+
+  // 🔹 Filtro directo en inputs (sin romper UX)
+  const handleInputChange = (field: FormFields, value: string) => {
+    let newValue = value;
+
+    if (["nombre", "apellidoPaterno", "apellidoMaterno"].includes(field)) {
+      newValue = newValue.replace(/[^A-Za-zÁÉÍÓÚáéíóúÑñ\s]/g, ""); // solo letras
+    }
+
+    if (field === "cedula") {
+      newValue = newValue.replace(/[^0-9]/g, ""); // solo números
+    }
+
+    setFormData({ ...formData, [field]: newValue });
   };
 
   return (
@@ -125,13 +159,13 @@ const UsuariosTable: React.FC = () => {
             <form onSubmit={handleSubmit} className="space-y-4">
               {(Object.keys(formData) as FormFields[]).map((field) => (
                 <div key={field}>
-                  <label className="block text-sm font-medium capitalize">{field.replace(/([A-Z])/g, " $1")}</label>
+                  <label className="block text-sm font-medium capitalize">
+                    {field.replace(/([A-Z])/g, " $1")}
+                  </label>
                   <input
                     type="text"
                     value={formData[field]}
-                    onChange={(e) =>
-                      setFormData({ ...formData, [field]: e.target.value })
-                    }
+                    onChange={(e) => handleInputChange(field, e.target.value)}
                     className="w-full px-3 py-2 border border-gray-400 rounded focus:outline-none focus:ring focus:ring-[#8D5F2D] focus:border-[#8D5F2D]"
                     required
                   />
@@ -161,4 +195,3 @@ const UsuariosTable: React.FC = () => {
 };
 
 export default UsuariosTable;
-

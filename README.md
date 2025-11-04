@@ -35,6 +35,7 @@ npm install
 npm run dev
 5.Abre tu navegador y visita 
 http://localhost:5173 para ver la aplicación en funcionamiento.
+6. Para probar inicio usar--- Usuario:admin -----Contraseña:1234
 
 
 ```

@@ -1,6 +1,7 @@
 // src/components/SlideBar.tsx
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { useAuth } from "../hooks/useAuth";
 
 interface SidebarProps {
   isOpen: boolean;
@@ -10,6 +11,7 @@ interface SidebarProps {
 const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
   const [servicesOpen, setServicesOpen] = useState(false);
   const location = useLocation();
+  const { isAuthenticated } = useAuth(); // ✅
 
   const linkClass = (path: string) =>
     location.pathname === path
@@ -33,9 +35,6 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
         <Link to="/" className={linkClass("/")}>
           Inicio
         </Link>
-        <Link to="/usuarios" className={linkClass("/usuarios")}>
-          Usuarios
-        </Link>
 
         <div className="mt-2">
           <button
@@ -57,16 +56,25 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
             </div>
           )}
         </div>
+
+        {/* Solo se muestra si está autenticado */}
+        {isAuthenticated && (
+          <Link to="/usuarios" className={linkClass("/usuarios")}>
+            Usuarios
+          </Link>
+        )}
       </nav>
 
       <div className="absolute bottom-4 w-full text-center text-xs text-gray-500">
-        © 2025 Santo Pulcro
+        © 2025 Funeraria Santo Sepulcro
       </div>
     </div>
   );
 };
 
 export default Sidebar;
+
+
 
 
 

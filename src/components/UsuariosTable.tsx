@@ -40,7 +40,7 @@ const UsuariosTable: React.FC = () => {
     }
   };
 
-  // 🔹 Validación sencilla antes de guardar
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -80,7 +80,7 @@ const UsuariosTable: React.FC = () => {
     setShowModal(false);
   };
 
-  // 🔹 Filtro directo en inputs (sin romper UX)
+
   const handleInputChange = (field: FormFields, value: string) => {
     let newValue = value;
 
@@ -149,7 +149,7 @@ const UsuariosTable: React.FC = () => {
         </table>
       </div>
 
-      {/* Modal Crear/Editar */}
+      {/* Crear/Editar */}
       {showModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
           <div className="bg-white p-6 rounded shadow-lg w-full max-w-lg">

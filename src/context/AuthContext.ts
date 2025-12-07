@@ -1,16 +1,18 @@
-// src/context/AuthContext.ts
+// src/context/AuthContext.ts 
 import { createContext } from "react";
 
 interface AuthContextType {
-  isAuthenticated: boolean;
-  login: (username: string, password: string) => boolean;
-  logout: () => void;
+ isAuthenticated: boolean;
+
+ login: (usuario: string, password: string) => Promise<boolean>; 
+ logout: () => void;
 }
 
 export const AuthContext = createContext<AuthContextType>({
-  isAuthenticated: false,
-  login: () => false,
-  logout: () => {},
+ isAuthenticated: false,
+
+ login: async () => false, 
+ logout: () => {},
 });
 
 
